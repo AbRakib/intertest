@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->date('payment_date');
             $table->string('payment_method');
             $table->decimal('amount');
-            $table->text('note');
+            $table->text('note')->nullable();
 
             $table->tinyInteger('status')->default(1)->comment('1=active,0=inactive');
             $table->timestamp('created_at')->nullable();

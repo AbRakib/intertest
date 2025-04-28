@@ -39,9 +39,9 @@ Route::middleware('auth:web')->prefix('admin')->name('admin.')->group(function (
     Route::get('/invoice-list', [InvoiceController::class, 'index'])->name('invoice.list');
     Route::get('/invoice-create', [InvoiceController::class, 'create'])->name('invoice.create');
     Route::post('/invoice-store', [InvoiceController::class, 'store'])->name('invoice.store');
-
     Route::get('/invoice-paid', [InvoiceController::class, 'paid'])->name('invoice.paid');
     Route::get('/invoice-unpaid', [InvoiceController::class, 'unpaid'])->name('invoice.unpaid');
+
     Route::get('/invoice-show/{id}', [InvoiceController::class, 'show'])->name('invoice.show');
     Route::get('/invoice-status/{id}', [InvoiceController::class, 'status'])->name('invoice.status');
     Route::get('/invoice-edit/{id}', [InvoiceController::class, 'edit'])->name('invoice.edit');

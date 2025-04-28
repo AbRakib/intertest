@@ -21,15 +21,25 @@
                                         <div class="col-md-6">
                                             <div class="form-floating mb-2">
                                                 <label for="invoice_no">Invoice No.</label>
-                                                <input type="text" class="form-control" id="invoice_no" name="invoice_no"
+                                                <input type="text"
+                                                    class="form-control @error('invoice_no') is-invalid @enderror"
+                                                    id="invoice_no" name="invoice_no"
                                                     value="{{ generate_invoice_number() }}" readonly>
+                                                @error('invoice_no')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-floating mb-2">
                                                 <label for="invoice_date">Invoice Date</label>
-                                                <input type="date" class="form-control" id="invoice_date" name="invoice_date"
-                                                    value="{{ date('Y-m-d') }}" readonly>
+                                                <input type="date"
+                                                    class="form-control @error('invoice_date') is-invalid @enderror"
+                                                    id="invoice_date" name="invoice_date" value="{{ date('Y-m-d') }}"
+                                                    readonly>
+                                                @error('invoice_date')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -37,15 +47,23 @@
                                         <div class="col-md-6">
                                             <div class="form-floating mb-2">
                                                 <label for="invoice_date">Payment Date</label>
-                                                <input type="date" class="form-control" id="payment_date" name="payment_date"
-                                                    value="{{ date('Y-m-d') }}">
+                                                <input type="date"
+                                                    class="form-control @error('payment_date') is-invalid @enderror"
+                                                    id="payment_date" name="payment_date" value="{{ date('Y-m-d') }}">
+                                                @error('payment_date')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-floating mb-2">
                                                 <label for="delivery_date">Delivery Date</label>
-                                                <input type="date" class="form-control" id="delivery_date" name="delivery_date"
-                                                    value="{{ date('Y-m-d') }}">
+                                                <input type="date"
+                                                    class="form-control @error('delivery_date') is-invalid @enderror"
+                                                    id="delivery_date" name="delivery_date" value="{{ date('Y-m-d') }}">
+                                                @error('delivery_date')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
@@ -54,18 +72,28 @@
                                         <div class="col-md-6">
                                             <div class="form-floating mb-2">
                                                 <label for="inspection_date">Inspection Date</label>
-                                                <input type="date" class="form-control" id="inspection_date" name="inspection_date">
+                                                <input type="date"
+                                                    class="form-control @error('inspection_date') is-invalid @enderror"
+                                                    id="inspection_date" name="inspection_date">
+                                                @error('inspection_date')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="form-floating mb-2">
                                                 <label for="next_inspection_date">Next Inspection</label>
-                                                <input type="date" class="form-control" id="next_inspection_date" name="next_inspection_date">
+                                                <input type="date"
+                                                    class="form-control @error('next_inspection_date') is-invalid @enderror"
+                                                    id="next_inspection_date" name="next_inspection_date">
+                                                @error('next_inspection_date')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
 
                                 <div class="col-md-6 text-md-end">
@@ -91,13 +119,17 @@
                                         <div class="card-body">
                                             <div class="mb-3">
                                                 <label class="form-label">Select your reference invoice</label>
-                                                <select class="form-select form-control js-example-basic-single"
+                                                <select
+                                                    class="form-select form-control js-example-basic-single @error('refer_invoice_id') is-invalid @enderror"
                                                     name="refer_invoice_id">
                                                     <option value="">Select Invoice</option>
                                                     @foreach ($invoices as $inv)
                                                         <option value="{{ $inv->id }}">{{ $inv->title }}</option>
                                                     @endforeach
                                                 </select>
+                                                @error('refer_invoice_id')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                             <span id="getInvoice"></span>
                                         </div>
@@ -112,13 +144,17 @@
                                         <div class="card-body">
                                             <div class="mb-3">
                                                 <label class="form-label">Who is this invoice to?</label>
-                                                <select class="form-select form-control js-example-basic-single"
+                                                <select
+                                                    class="form-select form-control js-example-basic-single @error('customer_id') is-invalid @enderror"
                                                     name="customer_id" required>
                                                     <option value="">Select Customer</option>
                                                     @foreach ($customers as $customer)
                                                         <option value="{{ $customer->id }}">{{ $customer->name }}</option>
                                                     @endforeach
                                                 </select>
+                                                @error('customer_id')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                             <span id="getCustomer"></span>
                                         </div>
@@ -132,30 +168,46 @@
                             </h5>
                             <div class="row">
                                 <div class="col-md-7">
-                                    <input type="text" class="form-control item-name" name="title"
-                                        placeholder="Item name" required>
+                                    <input type="text"
+                                        class="form-control item-name @error('description') is-invalid @enderror"
+                                        name="title" placeholder="Item name" required>
                                     <textarea class="form-control mt-2 item-desc" name="description" placeholder="Description" rows="2"></textarea>
+                                    @error('description')
+                                        <div class="text-danger">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="col-md-5">
                                     <div class="mb-2 row">
                                         <label for="total" class="col-sm-6 col-form-label">Total Amount</label>
                                         <div class="col-sm-6">
-                                            <input type="number" class="form-control text-right" value="0.00"
-                                                id="total" name="total_amount">
+                                            <input type="number"
+                                                class="form-control text-right @error('total_amount') is-invalid @enderror"
+                                                value="0.00" id="total" name="total_amount">
+                                            @error('total_amount')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="mb-2 row">
                                         <label for="paid" class="col-sm-6 col-form-label">Total Paid</label>
                                         <div class="col-sm-6">
-                                            <input type="number" class="form-control text-right" value="0.00"
-                                                id="paid" name="paid_amount">
+                                            <input type="number"
+                                                class="form-control text-right @error('paid_amount') is-invalid @enderror"
+                                                value="0.00" id="paid" name="paid_amount">
+                                            @error('paid_amount')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="mb-2 row">
                                         <label for="due" class="col-sm-6 col-form-label">Total Due</label>
                                         <div class="col-sm-6">
-                                            <input type="number" class="form-control text-right" id="due"
-                                                value="0.00" name="due_amount" readonly>
+                                            <input type="number"
+                                                class="form-control text-right @error('due_amount') is-invalid @enderror"
+                                                id="due" value="0.00" name="due_amount" readonly>
+                                            @error('due_amount')
+                                                <div class="text-danger">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -164,13 +216,20 @@
                             <!-- Report -->
                             <div class="mb-4">
                                 <label class="form-label">Report</label>
-                                <input type="file" class="form-control">
+                                <input type="file" name="report" class="form-control @error('report') is-invalid @enderror">
+                                @error('report')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <!-- Notes -->
                             <div class="mb-4">
                                 <label class="form-label">Notes</label>
-                                <textarea class="form-control" name="invoice_note" rows="3" placeholder="Thanks for your business!">Thanks for your business!</textarea>
+                                <textarea class="form-control @error('invoice_note') is-invalid @enderror" name="invoice_note" rows="3"
+                                    placeholder="Thanks for your business!">Thanks for your business!</textarea>
+                                @error('invoice_note')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <!-- Form Actions -->

@@ -74,7 +74,6 @@
             <h6 class="collapse-header">Payment Utilities:</h6>
             <a class="collapse-item" href="#">Payment History</a>
             <a class="collapse-item" href="#">Add Payment</a>
-            <a class="collapse-item" href="#">Pending Payments</a>
         </div>
     </div>
 </li>

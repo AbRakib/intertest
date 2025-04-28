@@ -10,7 +10,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-sm customer-table" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered table-sm customer-table small text-center" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>Customer Id</th>
@@ -64,7 +64,7 @@
                                     {{ $customer->phone }}
                                 </td>
                                 <td>{{ $customer->address }}</td>
-                                <td>{{ format_data($customer->created_at) }}</td>
+                                <td>{{ format_date($customer->created_at) }}</td>
                                 <td>{{ $customer->user->name }}</td>
                                 <td class="text-center mt-2">
                                     <div class="btn-group" role="group" aria-label="Basic example">

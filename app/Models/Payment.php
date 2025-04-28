@@ -4,6 +4,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model {
+
+    const STATUS_ACTIVE = 1;
+    const STATUS_INACTIVE = 0;
+    const STATUES = [
+        self::STATUS_ACTIVE => 'Yes',
+        self::STATUS_INACTIVE => 'No',
+    ];
+
+    const DELETED_YES = 1;
+    const DELETED_NO = 0;
+    const DELETES = [
+        self::DELETED_YES => 'Yes',
+        self::DELETED_NO => 'No',
+    ];
+
+    const PAYMENT_PAID = 1;
+    const PAYMENT_UNPAID = 0;
+    const PAYMENT_PARTIAL = 2;
+    const PAYMENTS = [
+        self::PAYMENT_PAID => 'Paid',
+        self::PAYMENT_UNPAID => 'Unpaid',
+        self::PAYMENT_PARTIAL => 'Partial Paid',
+    ];
+
+    
     protected $fillable = [
         'invoice_id',
         'customer_id',
