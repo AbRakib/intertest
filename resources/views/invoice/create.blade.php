@@ -215,8 +215,8 @@
 
                             <!-- Report -->
                             <div class="mb-4">
-                                <label class="form-label">Report</label>
-                                <input type="file" name="report" class="form-control @error('report') is-invalid @enderror">
+                                <label class="form-label">Report <span class="text-danger">*</span></label>
+                                <input type="file" name="report" class="form-control @error('report') is-invalid @enderror" required>
                                 @error('report')
                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
@@ -241,7 +241,7 @@
                                     <button type="reset" class="btn btn-light me-2">
                                         <i class="fas fa-redo me-1"></i> Reset
                                     </button>
-                                    <button type="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-warning">
                                         <i class="fas fa-save me-1"></i> Save Invoice
                                     </button>
                                 </div>

@@ -6,7 +6,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Paid Invoice List</h6>
+            <h6 class="m-0 font-weight-bold text-warning">Paid Invoice List</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -133,7 +133,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-warning">Save changes</button>
                 </div>
             </div>
         </div>

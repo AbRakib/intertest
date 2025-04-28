@@ -6,7 +6,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Active Customer List</h6>
+            <h6 class="m-0 font-weight-bold text-warning">Active Customer List</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -64,7 +64,7 @@
                                     {{ $customer->phone }}
                                 </td>
                                 <td>{{ $customer->address }}</td>
-                                <td>{{ format_data($customer->created_at) }}</td>
+                                <td>{{ format_date($customer->created_at) }}</td>
                                 <td>{{ $customer->user->name }}</td>
                                 <td class="text-center mt-2">
                                     <div class="btn-group" role="group" aria-label="Basic example">

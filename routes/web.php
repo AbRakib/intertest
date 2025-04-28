@@ -5,10 +5,12 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\PaymentController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 // Guest routes for admins
-Route::middleware('guest:web')->group(function () {
+Route::middleware('guest')->group(function () {
     Route::get('/', [AuthController::class, 'login'])->name('login');
     Route::post('/check-login', [AuthController::class, 'checkLogin'])->name('check.login');
 
@@ -16,11 +18,7 @@ Route::middleware('guest:web')->group(function () {
     Route::post('/adm-check-login', [AuthController::class, 'adminCheckLogin'])->name('admin.check.login');
 });
 
-Route::middleware('auth:customer')->prefix('customer')->name('customer.')->group(function () {
-    Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
-});
-
-Route::middleware('auth:web')->prefix('admin')->name('admin.')->group(function () {
+Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
     //customer route
@@ -46,14 +44,30 @@ Route::middleware('auth:web')->prefix('admin')->name('admin.')->group(function (
     Route::get('/invoice-status/{id}', [InvoiceController::class, 'status'])->name('invoice.status');
     Route::get('/invoice-edit/{id}', [InvoiceController::class, 'edit'])->name('invoice.edit');
     Route::get('/invoice-destroy/{id}', [InvoiceController::class, 'destroy'])->name('invoice.destroy');
-    Route::post('/invoice-update', [InvoiceController::class, 'update'])->name('invoice.update');
+    Route::post('/invoice-update/{id}', [InvoiceController::class, 'update'])->name('invoice.update');
 
     Route::get('/invoice-customer-get', [InvoiceController::class, 'getCustomer'])->name('get.customer');
     Route::get('/invoice-invoice-get', [InvoiceController::class, 'getInvoice'])->name('get.invoice');
+    Route::get('/payment-invoice-get', [InvoiceController::class, 'paymentInvoice'])->name('payment.invoice');
+    Route::get('/payment-invoice-download/{id}', [InvoiceController::class, 'download'])->name('invoice.download');
+
+    //payment 
+    Route::post('/inv-payment', [PaymentController::class, 'store'])->name('payment');
+    Route::get('/payments', [PaymentController::class, 'index'])->name('payment.list');
+
+    //for customer report
+    Route::get('/report', [InvoiceController::class, 'report'])->name('report.list');
+    Route::get('/report-payment-history', [InvoiceController::class, 'paymentHistory'])->name('report.payment.history');
 
     //company route
     Route::get('companies', [CompanyController::class, 'index'])->name('company.index');
     Route::post('company-update', [CompanyController::class, 'update'])->name('company.update');
+
+    //profile
+    Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
+    Route::post('/profile-update', [DashboardController::class, 'updateProfile'])->name('profile.update');
+    Route::get('/profile-password', [DashboardController::class, 'changePassword'])->name('change.password');
+    Route::post('/profile-password-update', [DashboardController::class, 'update'])->name('password.update');
 
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });

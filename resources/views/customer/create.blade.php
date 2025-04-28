@@ -73,7 +73,7 @@
 
                         <div class="d-grid gap-2">
                             <button type="submit" class="btn btn-warning">Submit</button>
-                            <button type="reset" class="btn btn-secondary">Reset</button>
+                            <button type="reset" class="btn btn-dark">Reset</button>
                         </div>
                     </form>
                 </div>

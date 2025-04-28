@@ -26,8 +26,25 @@ class DatabaseSeeder extends Seeder {
         ]);
 
         DB::table('users')->insert([
+            'role'       => 1,
+            'is_admin'   => 1,
             'name'       => 'Super Admin',
             'email'      => 'admin@gmail.com',
+            'phone'       => '01500000000',
+            'password'   => bcrypt('123456'),
+            'address'    => 'Dhaka, Bangladesh',
+            'created_at' => now(),
+            'created_by' => 1,
+            'updated_at' => now(),
+            'updated_by' => 1,
+        ]);
+
+        DB::table('users')->insert([
+            'role'       => 0,
+            'is_admin'   => 0,
+            'name'       => 'Customer',
+            'email'      => 'customer@gmail.com',
+            'phone'       => '01700000000',
             'password'   => bcrypt('123456'),
             'address'    => 'Dhaka, Bangladesh',
             'created_at' => now(),
@@ -41,7 +58,7 @@ class DatabaseSeeder extends Seeder {
             'name'        => 'Customer',
             'email'       => 'customer@gmail.com',
             'phone'       => '01700000000',
-            'password'   => bcrypt('123456'),
+            'password'    => bcrypt('123456'),
             'address'     => 'Dhaka, Bangladesh',
             'created_at'  => now(),
             'created_by'  => 1,

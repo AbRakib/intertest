@@ -2,6 +2,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Payment extends Model {
 
@@ -45,4 +46,12 @@ class Payment extends Model {
         'deleted_at',
         'deleted_by',
     ];
+
+    public function customer():BelongsTo {
+        return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
+    public function invoice():BelongsTo {
+        return $this->belongsTo(Invoice::class, 'invoice_id');
+    }
 }

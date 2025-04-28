@@ -1,4 +1,4 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-warning sidebar sidebar-dark accordion" id="accordionSidebar">
 
 <!-- Sidebar - Brand -->
 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.dashboard') }}">
@@ -20,12 +20,9 @@
 <!-- Divider -->
 <hr class="sidebar-divider">
 
-<!-- Heading -->
-<div class="sidebar-heading">
-    Interface
-</div>
 
 <!-- Nav Item - Pages Collapse Menu -->
+@if (Auth::user()->role == 1 && Auth::user()->is_admin == 1)
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
         aria-expanded="true" aria-controls="collapseTwo">
@@ -34,7 +31,6 @@
     </a>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Customer Components:</h6>
             <a class="collapse-item" href="{{ route('admin.customer.list') }}">All Customers</a>
             <a class="collapse-item" href="{{ route('admin.customer.create') }}">Add New</a>
             <a class="collapse-item" href="{{ route('admin.customer.active') }}">Active Customers</a>
@@ -42,8 +38,10 @@
         </div>
     </div>
 </li>
+@endif
 
 <!-- Nav Item - Utilities Collapse Menu -->
+@if (Auth::user()->role == 1 && Auth::user()->is_admin == 1)
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInvoice"
         aria-expanded="true" aria-controls="collapseInvoice">
@@ -53,7 +51,6 @@
     <div id="collapseInvoice" class="collapse" aria-labelledby="headingUtilities"
         data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Invoice Components:</h6>
             <a class="collapse-item" href="{{ route('admin.invoice.list') }}">All Invoices</a>
             <a class="collapse-item" href="{{ route('admin.invoice.create') }}">Create Invoice</a>
             <a class="collapse-item" href="{{ route('admin.invoice.unpaid') }}">Unpaid Invoices</a>
@@ -61,24 +58,41 @@
         </div>
     </div>
 </li>
+@endif
 
+@if (Auth::user()->role == 0 && Auth::user()->is_admin == 0)
 <li class="nav-item">
-    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePayment"
-        aria-expanded="true" aria-controls="collapsePayment">
-        <i class="fas fa-file-invoice-dollar"></i>
-        <span>Payments</span>
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+        aria-expanded="true" aria-controls="collapseTwo">
+        <i class="fas fa-users"></i>
+        <span>Reports</span>
     </a>
-    <div id="collapsePayment" class="collapse" aria-labelledby="headingUtilities"
-        data-parent="#accordionSidebar">
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Payment Utilities:</h6>
-            <a class="collapse-item" href="#">Payment History</a>
-            <a class="collapse-item" href="#">Add Payment</a>
+            <a class="collapse-item" href="{{ route('admin.report.list') }}">All Report</a>
         </div>
     </div>
 </li>
+@endif
 
+@if (Auth::user()->role == 1 && Auth::user()->is_admin == 1)
 <li class="nav-item">
+    <a class="nav-link" href="{{ route('admin.payment.list') }}">
+        <i class="fas fa-file-invoice-dollar"></i>
+        <span>Payment History</span></a>
+</li>
+@endif
+
+@if (Auth::user()->role == 0 && Auth::user()->is_admin == 0)
+<li class="nav-item">
+    <a class="nav-link" href="{{ route('admin.payment.list') }}">
+        <i class="fas fa-file-invoice-dollar"></i>
+        <span>Payment History</span></a>
+</li>
+@endif
+
+
+{{-- <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTransaction"
         aria-expanded="true" aria-controls="collapseTransaction">
         <i class="fas fa-hand-holding-usd"></i>
@@ -91,7 +105,7 @@
             <a class="collapse-item" href="#">All Transactions</a>
         </div>
     </div>
-</li>
+</li> --}}
 
 <!-- Divider -->
 <hr class="sidebar-divider">
@@ -101,11 +115,14 @@
     Settings
 </div>
 
+@if (Auth::user()->role == 1 && Auth::user()->is_admin == 1)
 <li class="nav-item">
     <a class="nav-link" href="{{ route('admin.company.index') }}">
         <i class="fas fa-fw fa-table"></i>
         <span>Company Setting</span></a>
 </li>
+@endif
+
 
 <!-- Nav Item - Pages Collapse Menu -->
 <li class="nav-item">
@@ -116,9 +133,8 @@
     </a>
     <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Login Screens:</h6>
-            <a class="collapse-item" href="#">My Profile</a>
-            <a class="collapse-item" href="#">Change Password</a>
+            <a class="collapse-item" href="{{ route('admin.profile') }}">My Profile</a>
+            <a class="collapse-item" href="{{ route('admin.change.password') }}">Change Password</a>
         </div>
     </div>
 </li>

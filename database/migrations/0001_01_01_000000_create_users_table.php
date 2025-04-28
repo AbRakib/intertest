@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->tinyInteger('role')->default(0)->comment('1=admin,0=customer');
+            $table->tinyInteger('is_admin')->comment('0=no,1=yes')->default(0);
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone')->unique()->nullable();

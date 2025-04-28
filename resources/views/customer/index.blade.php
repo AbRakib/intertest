@@ -6,31 +6,31 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Customer List</h6>
+            <h6 class="m-0 font-weight-bold text-warning">Customer List</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-sm customer-table small text-center" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered table-sm customer-table small" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Customer Id</th>
-                            <th>Name</th>
-                            <th>Email/Phone</th>
-                            <th>Address</th>
-                            <th>Created At</th>
-                            <th>Created By</th>
-                            <th class="text-center">Action</th>
+                            <th style="width: 10%">Customer Id</th>
+                            <th style="width: 20%">Name</th>
+                            <th style="width: 20%">Email/Phone</th>
+                            <th style="width: 20%">Address</th>
+                            <th style="width: 10%">Created At</th>
+                            <th style="width: 10%">Created By</th>
+                            <th style="width: 5%" class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>Customer Id</th>
-                            <th>Name</th>
-                            <th>Email/Phone</th>
-                            <th>Address</th>
-                            <th>Created At</th>
-                            <th>Created By</th>
-                            <th class="text-center">Action</th>
+                            <th style="width: 10%">Customer Id</th>
+                            <th style="width: 20%">Name</th>
+                            <th style="width: 20%">Email/Phone</th>
+                            <th style="width: 20%">Address</th>
+                            <th style="width: 10%">Created At</th>
+                            <th style="width: 10%">Created By</th>
+                            <th style="width: 5%" class="text-center">Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
@@ -66,7 +66,7 @@
                                 <td>{{ $customer->address }}</td>
                                 <td>{{ format_date($customer->created_at) }}</td>
                                 <td>{{ $customer->user->name }}</td>
-                                <td class="text-center mt-2">
+                                {{-- <td class="text-center mt-2">
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <a href="{{ route('admin.customer.show', $customer->id) }}"
                                             class="btn btn-sm btn-warning">
@@ -81,7 +81,29 @@
                                             <i class="fas fa-trash-alt"></i>
                                         </a>
                                     </div>
+                                </td> --}}
+                                <td class="text-center mt-2">
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm" type="button" id="actionDropdown{{ $customer->id }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-bars"></i>
+                                        </button>
+                                        <div class="dropdown-menu text-center" aria-labelledby="actionDropdown{{ $customer->id }}">
+                                            <a href="{{ route('admin.customer.show', $customer->id) }}"
+                                                class="btn btn-sm btn-warning">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('admin.customer.edit', $customer->id) }}"
+                                                class="btn btn-sm btn-secondary">
+                                                <i class="far fa-edit"></i>
+                                            </a>
+                                            <a href="{{ route('admin.customer.destroy', $customer->id) }}"
+                                                class="btn btn-sm btn-danger">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </td>
+                                
                             </tr>
                         @empty
                         @endforelse

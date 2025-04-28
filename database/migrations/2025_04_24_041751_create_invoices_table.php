@@ -25,8 +25,8 @@ return new class extends Migration {
             $table->decimal('due_amount')->default(0);
             
             $table->string('title');
-            $table->text('description');
-            $table->string('report');
+            $table->text('description')->nullable();
+            $table->string('report')->nullable();
             $table->text('invoice_note');
 
             $table->integer('payment_status')->default(0)->comment('paid=1, unpaid=0, partial-paid=2');

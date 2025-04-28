@@ -59,8 +59,12 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; <a href="https://retinasoft.com.bd/"
-                                target="_blank">Retiansoft.com.bd</a> 2025</span>
+                        <span>
+                            Copyright &copy;
+                            <a class="text-warning" href="https://retinasoft.com.bd/"
+                                target="_blank">Retiansoft.com.bd</a>
+                            2025
+                        </span>
                     </div>
                 </div>
             </footer>

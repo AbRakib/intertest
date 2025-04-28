@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -7,10 +6,33 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+
+    const ROLE_ADMIN    = 1;
+    const ROLE_CUSTOMER = 0;
+    const ROLES         = [
+        self::ROLE_ADMIN    => 'admin',
+        self::ROLE_CUSTOMER => 'customer',
+    ];
+
+    const IS_ADMIN    = 1;
+    const IS_CUSTOMER = 0;
+
+    const STATUS_ACTIVE   = 1;
+    const STATUS_INACTIVE = 0;
+    const STATUES         = [
+        self::STATUS_ACTIVE   => 'Yes',
+        self::STATUS_INACTIVE => 'No',
+    ];
+
+    const DELETED_YES = 1;
+    const DELETED_NO  = 0;
+    const DELETES     = [
+        self::DELETED_YES => 'Yes',
+        self::DELETED_NO  => 'No',
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -18,6 +40,8 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'role',
+        'is_admin',
         'name',
         'email',
         'password',
@@ -49,11 +73,10 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
-    {
+    protected function casts(): array {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password'          => 'hashed',
         ];
     }
 }

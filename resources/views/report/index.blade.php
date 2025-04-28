@@ -19,14 +19,12 @@
                             <th>Invoice Value</th>
                             <th>Received</th>
                             <th>Due Amount</th>
-                            <th>Ref Invoice</th>
                             <th>Invoice Title</th>
                             <th>Payment Status</th>
                             <th>Download</th>
                             <th>Inspection Date</th>
                             <th>Delivery Date</th>
                             <th>Next Inspection</th>
-                            <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tfoot>
@@ -36,87 +34,60 @@
                             <th>Invoice Value</th>
                             <th>Received</th>
                             <th>Due Amount</th>
-                            <th>Ref Invoice</th>
                             <th>Invoice Title</th>
                             <th>Payment Status</th>
                             <th>Download</th>
                             <th>Inspection Date</th>
                             <th>Delivery Date</th>
                             <th>Next Inspection</th>
-                            <th class="text-center">Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        @forelse ($invoices as $invoice)
+                        @forelse ($reports as $report)
                             <tr class="text-center">
-                                <td>{{ $invoice->customer->name }}</td>
-                                <td>{{ $invoice->invoice_no }}</td>
+                                <td>{{ $report->customer->name }}</td>
+                                <td>{{ $report->invoice_no }}</td>
                                 <td>
                                     ৳
                                     <span class="text-warning">
-                                        {{ $invoice->total_amount }}
+                                        {{ $report->total_amount }}
                                     </span>
                                 </td>
                                 <td>
                                     ৳
                                     <span class="text-success">
-                                        {{ $invoice->paid_amount }}
+                                        {{ $report->paid_amount }}
                                     </span>
                                 </td>
                                 <td>
                                     ৳
                                     <span class="text-danger">
-                                        {{ $invoice->due_amount }}
+                                        {{ $report->due_amount }}
                                     </span>
                                 </td>
-                                <td>{{ $invoice->invoice?->invoice_no ?? 'No Invoice' }}</td>
-                                <td>{{ $invoice->title }}</td>
+                                <td>{{ $report->title }}</td>
                                 <td>
-                                    @if ($invoice->due_amount == 0)
-                                        Paid
+                                    @if ($report->due_amount == 0)
+                                        <span class="text-success">Paid</span>
                                     @else
-                                        Unpaid
+                                        <span class="text-danger">Unpaid</span>
                                     @endif
                                 </td>
                                 <td>
-                                    @if ($invoice->due_amount == 0)
-                                        @if ($invoice->report)
-                                            <a href="{{ asset('storage/reports/' . $invoice->report) }}" download>Download
+                                    @if ($report->due_amount == 0)
+                                        @if ($report->report)
+                                            <a href="{{ asset('storage/reports/' . $report->report) }}" download>Download
                                                 Report</a>
                                         @endif
                                     @else
-                                        <a href="javascript:void(0)" data-toggle="modal" data-target="#payment"
-                                            onclick="getInvoice({{ $invoice->id }})">Make
-                                            Payment</a>
+                                        Pending...
                                     @endif
                                 </td>
-                                <td>{{ format_date($invoice->inspection_date) }}</td>
-                                <td>{{ format_date($invoice->delivery_date) }}</td>
-                                <td>{{ format_date($invoice->delivery_date) }}</td>
-
-                                <td class="text-center mt-2">
-                                    <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a href="{{ route('admin.invoice.download', $invoice->id) }}"
-                                            class="btn btn-sm btn-warning">
-                                            <i class="fas fa-download"></i>
-                                        </a>
-                                        {{-- <a href="{{ route('admin.invoice.show', $invoice->id) }}"
-                                            class="btn btn-sm btn-warning">
-                                            <i class="fas fa-eye"></i>
-                                        </a> --}}
-                                        <a href="{{ route('admin.invoice.edit', $invoice->id) }}"
-                                            class="btn btn-sm btn-secondary">
-                                            <i class="far fa-edit"></i>
-                                        </a>
-                                        <a href="{{ route('admin.invoice.destroy', $invoice->id) }}"
-                                            class="btn btn-sm btn-danger">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </a>
-                                    </div>
-                                </td>
+                                <td>{{ format_date($report->inspection_date) }}</td>
+                                <td>{{ format_date($report->delivery_date) }}</td>
+                                <td>{{ format_date($report->delivery_date) }}</td>
                             </tr>
                         @empty
-                            No Data Found!!
                         @endforelse
                     </tbody>
                 </table>

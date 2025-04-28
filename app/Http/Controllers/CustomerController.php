@@ -1,10 +1,13 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Mail\CustomerCredentialMail;
 use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class CustomerController extends Controller {
     /**
@@ -17,7 +20,7 @@ class CustomerController extends Controller {
 
         return view("customer.index", compact("customers"));
     }
-    
+
     public function active() {
         $customers = Customer::where('deleted', Customer::DELETED_NO)
             ->where('status', Customer::STATUS_ACTIVE)
@@ -64,13 +67,20 @@ class CustomerController extends Controller {
             $validatedData['photo'] = $photoPath;
         }
 
+        $plainPassword = $validatedData['password'];
         // Hash the password before saving
         $validatedData['password']   = Hash::make($validatedData['password']);
         $validatedData['created_by'] = Auth::user()->id;
+        
 
         try {
             // Create the customer record
             $customer = Customer::create($validatedData);
+            // Create the admin record
+            $user = User::create($validatedData);
+
+            // Send email with credentials
+            Mail::to($customer->email)->send(new CustomerCredentialMail($customer->email, $plainPassword));
 
             // Redirect with success message
             return redirect()->route('admin.customer.list')
@@ -88,7 +98,7 @@ class CustomerController extends Controller {
         $customer = Customer::where('id', $id)->first();
         return view("customer.view", compact('customer'));
     }
-    
+
     public function status($id) {
         $customer = Customer::where('id', $id)->first();
         if ($customer->status == Customer::STATUS_ACTIVE) {
@@ -100,7 +110,7 @@ class CustomerController extends Controller {
         $customer->updated_at = now();
         $customer->updated_by = Auth::user()->id;
         $customer->save();
-        
+
         return redirect()->back()->with('success', 'Customer Status Updated');
     }
 
@@ -116,7 +126,7 @@ class CustomerController extends Controller {
      * Update the specified resource in storage.
      */
     public function update(Request $request) {
-        $id = $request->id;
+        $id            = $request->id;
         $validatedData = $request->validate([
             'name'    => 'required|string|max:255',
             'email'   => 'required|email|unique:customers,email,' . $id,
@@ -150,13 +160,13 @@ class CustomerController extends Controller {
      */
     public function destroy($id) {
         $customer = Customer::where('id', $id)
-                ->first();
+            ->first();
 
-            $customer->deleted = Customer::DELETED_YES;
-            $customer->deleted_at = now();
-            $customer->deleted_by = Auth::user()->id;
-            $customer->save();
+        $customer->deleted    = Customer::DELETED_YES;
+        $customer->deleted_at = now();
+        $customer->deleted_by = Auth::user()->id;
+        $customer->save();
 
-            return redirect()->route('admin.customer.list')->with('success', 'Customer Deleted Successful');
+        return redirect()->route('admin.customer.list')->with('success', 'Customer Deleted Successful');
     }
 }
